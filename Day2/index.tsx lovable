@@ -1,0 +1,209 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, BadgeCheck, Boxes, Clock3, Headphones, MapPinned, PackageCheck, ShieldCheck, Truck, Warehouse } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import heroImg from "@/assets/hero-truck.jpg";
+import warehouseImg from "@/assets/warehouse.jpg";
+import seaImg from "@/assets/sea-freight.jpg";
+import supplyImg from "@/assets/supply-chain.jpg";
+import { TrackingSearch } from "@/components/site/TrackingSearch";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { ServiceCard } from "@/components/site/ServiceCard";
+import { StatCounter } from "@/components/site/StatCounter";
+import { Testimonials } from "@/components/site/Testimonials";
+import { CtaBand } from "@/components/site/CtaBand";
+import { FaqList } from "@/components/site/FaqList";
+import { QuoteForm } from "@/components/site/QuoteForm";
+import { Reveal } from "@/components/site/Reveal";
+import { SERVICES } from "@/lib/services";
+import { SITE } from "@/lib/site";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "SwiftMove Logistics — Book, Track & Ship Across India" },
+      { name: "description", content: "Book a shipment, track deliveries and get free quotes. Road, air and sea freight, warehousing, last-mile delivery and supply chain management." },
+      { property: "og:title", content: "SwiftMove Logistics — Moving Your Business Forward" },
+      { property: "og:description", content: "Reliable road, air and sea freight, warehousing and last-mile delivery. Book online or get a free quote." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: HomePage,
+});
+
+const CITIES = ["Mumbai", "Delhi", "Bengaluru", "Chennai", "Kolkata", "Hyderabad", "Pune", "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kochi", "Indore", "Nagpur", "Dubai", "Singapore"];
+
+const STEPS = [
+  { icon: PackageCheck, title: "Book online", text: "Share pickup, delivery and goods details. Get a reference instantly." },
+  { icon: Truck, title: "We pick up", text: "Our team confirms the slot and collects from your door or warehouse." },
+  { icon: MapPinned, title: "Track progress", text: "Follow each stage of the journey with your tracking ID." },
+  { icon: BadgeCheck, title: "Delivered", text: "Safe, on-time delivery with proof of delivery shared with you." },
+];
+
+function HomePage() {
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden bg-navy-deep text-navy-foreground">
+        <img src={heroImg} alt="SwiftMove truck on the highway at dusk" className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center]" fetchPriority="high" />
+        <div className="absolute inset-0 -z-10 bg-hero-overlay" aria-hidden="true" />
+        <div className="container-site grid items-center gap-10 pb-16 pt-14 md:pt-20 lg:grid-cols-[1.25fr_1fr] lg:pb-24 lg:pt-28">
+          <div>
+            <p className="eyebrow inline-flex items-center gap-2 rounded-full border border-navy-foreground/20 bg-navy-foreground/5 px-3 py-1.5 text-navy-foreground/85 backdrop-blur animate-fade-up">
+              <span className="h-2 w-2 rounded-full bg-orange animate-pulse-ring" /> Road · Air · Sea · Warehousing
+            </p>
+            <h1 className="mt-6 text-4xl font-black leading-[1.02] sm:text-5xl lg:text-7xl animate-fade-up [animation-delay:80ms]">
+              Moving Your Business Forward, <span className="text-orange">One Delivery</span> at a Time.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy-foreground/75 animate-fade-up [animation-delay:160ms]">
+              SwiftMove Logistics moves goods for individuals, retailers, manufacturers and corporate clients — by road, air and sea, with warehousing and doorstep delivery under one roof.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row animate-fade-up [animation-delay:240ms]">
+              <Button variant="cta" size="lg" asChild><Link to="/book">Book a Shipment <ArrowRight /></Link></Button>
+              <Button variant="outlineLight" size="lg" asChild><Link to="/quote">Get a Free Quote</Link></Button>
+            </div>
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-navy-foreground/75 animate-fade-up [animation-delay:320ms]">
+              <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-orange" />Insured cargo options</li>
+              <li className="flex items-center gap-2"><Clock3 className="h-4 w-4 text-orange" />On-time pickups</li>
+              <li className="flex items-center gap-2"><Headphones className="h-4 w-4 text-orange" />Real people on support</li>
+            </ul>
+          </div>
+          <div className="animate-fade-up [animation-delay:300ms]">
+            <TrackingSearch />
+          </div>
+        </div>
+        <div className="h-2 w-full bg-stripes" aria-hidden="true" />
+      </section>
+
+      {/* Cities marquee */}
+      <section className="overflow-hidden border-b border-border bg-card py-5" aria-label="Cities we serve">
+        <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
+          {[...CITIES, ...CITIES].map((c, i) => (
+            <span key={i} className="flex items-center gap-10 font-display text-lg font-bold uppercase tracking-wide text-navy/40">
+              {c}<span className="h-1.5 w-1.5 rotate-45 bg-orange" aria-hidden="true" />
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Intro */}
+      <section className="container-site grid items-center gap-14 py-20 md:py-28 lg:grid-cols-2">
+        <Reveal className="relative">
+          <div className="grid grid-cols-5 grid-rows-6 gap-4 h-[440px] md:h-[520px]">
+            <img src={warehouseImg} alt="SwiftMove warehouse with stacked pallets" loading="lazy" className="col-span-3 row-span-6 h-full w-full rounded-xl object-cover shadow-card" />
+            <img src={seaImg} alt="Container ship arriving at port" loading="lazy" className="col-span-2 row-span-3 h-full w-full rounded-xl object-cover shadow-card" />
+            <img src={supplyImg} alt="Container yard from above" loading="lazy" className="col-span-2 row-span-3 h-full w-full rounded-xl object-cover shadow-card" />
+          </div>
+          <div className="absolute -bottom-6 left-6 flex items-center gap-3 rounded-xl bg-navy-deep px-5 py-4 text-navy-foreground shadow-lift">
+            <span className="font-display text-4xl font-black text-orange">15+</span>
+            <span className="text-sm leading-tight text-navy-foreground/80">years moving<br />Indian businesses</span>
+          </div>
+        </Reveal>
+        <Reveal delay={100}>
+          <SectionHeading eyebrow="Who we are" title="One logistics partner, from first mile to last." intro="From a single parcel to full container loads, we plan, move and store your goods with the care of a local team and the reach of a national network." />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              { icon: Truck, t: "Own & partner fleet", d: "Trucks, vans and trailers for every load size." },
+              { icon: Warehouse, t: "Secure warehouses", d: "CCTV-monitored storage with stock reporting." },
+              { icon: Boxes, t: "Any cargo", d: "Documents, retail stock, machinery, perishables." },
+              { icon: Headphones, t: "Dedicated support", d: "One contact who knows your shipments." },
+            ].map(({ icon: Icon, t, d }) => (
+              <div key={t} className="flex gap-3 rounded-lg border border-border bg-card p-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-orange-soft text-orange"><Icon className="h-5 w-5" /></span>
+                <div>
+                  <p className="font-bold text-navy">{t}</p>
+                  <p className="text-sm text-muted-foreground">{d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Button variant="link" className="mt-6" asChild><Link to="/about">More about SwiftMove <ArrowRight /></Link></Button>
+        </Reveal>
+      </section>
+
+      {/* Services */}
+      <section className="bg-secondary/60 py-20 md:py-28">
+        <div className="container-site">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <SectionHeading eyebrow="Our services" title="Logistics solutions built around your goods." />
+            <Button variant="outline" asChild><Link to="/services">View all services <ArrowRight /></Link></Button>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s, i) => (
+              <Reveal key={s.slug} delay={(i % 3) * 90}>
+                <ServiceCard service={s} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="relative overflow-hidden bg-gradient-navy py-20 text-navy-foreground md:py-24">
+        <div className="absolute inset-0 bg-grid-navy opacity-50" aria-hidden="true" />
+        <div className="container-site relative grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:items-center">
+          <SectionHeading light eyebrow="By the numbers" title="Trusted by thousands of businesses." intro="Every number below is a promise kept — a pickup made, a delivery completed, a customer who came back." />
+          <div className="grid grid-cols-2 gap-10">
+            <StatCounter value={250000} suffix="+" label="Deliveries completed" />
+            <StatCounter value={12000} suffix="+" label="Happy customers" />
+            <StatCounter value={180} suffix="+" label="Cities covered" />
+            <StatCounter value={15} suffix="+" label="Years of experience" />
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="container-site py-20 md:py-28">
+        <SectionHeading center eyebrow="How it works" title="Shipping made simple in four steps." />
+        <ol className="relative mt-14 grid gap-8 md:grid-cols-4">
+          <span className="absolute left-0 right-0 top-7 hidden h-px border-t-2 border-dashed border-navy/20 md:block" aria-hidden="true" />
+          {STEPS.map(({ icon: Icon, title, text }, i) => (
+            <Reveal as="li" key={title} delay={i * 100} className="relative text-center">
+              <span className="relative mx-auto grid h-14 w-14 place-items-center rounded-full border-4 border-background bg-navy text-navy-foreground shadow-card">
+                <Icon className="h-6 w-6" />
+                <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-orange font-mono text-[0.7rem] font-bold text-orange-foreground">{i + 1}</span>
+              </span>
+              <h3 className="mt-5 text-lg font-extrabold text-navy">{title}</h3>
+              <p className="mx-auto mt-2 max-w-[16rem] text-sm text-muted-foreground">{text}</p>
+            </Reveal>
+          ))}
+        </ol>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-secondary/60 py-20 md:py-28">
+        <div className="container-site">
+          <SectionHeading center eyebrow="Testimonials" title="What our customers say." />
+          <div className="mt-12"><Testimonials /></div>
+        </div>
+      </section>
+
+      {/* Quote */}
+      <section className="container-site grid gap-12 py-20 md:py-28 lg:grid-cols-[1fr_1.3fr]">
+        <Reveal>
+          <SectionHeading eyebrow="Get a free quote" title="Know your price before you ship." intro="Tell us what you're moving and where. Our team replies with a clear, no-obligation quote within one business day." />
+          <ul className="mt-8 space-y-3 text-sm">
+            {["No hidden charges", "Business and bulk discounts", "Custom plans for regular shipments"].map((x) => (
+              <li key={x} className="flex items-center gap-2 font-semibold text-navy"><BadgeCheck className="h-5 w-5 text-orange" />{x}</li>
+            ))}
+          </ul>
+          <p className="mt-8 text-sm text-muted-foreground">Prefer to talk? Call <a href={SITE.phoneHref} className="font-bold text-navy hover:text-orange">{SITE.phone}</a></p>
+        </Reveal>
+        <Reveal delay={100}><QuoteForm compact /></Reveal>
+      </section>
+
+      {/* FAQ preview */}
+      <section className="bg-secondary/60 py-20 md:py-28">
+        <div className="container-site grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+          <div>
+            <SectionHeading eyebrow="FAQ" title="Questions, answered." intro="Quick answers about booking, tracking and pricing." />
+            <Button variant="outline" className="mt-8" asChild><Link to="/faq">See all FAQs <ArrowRight /></Link></Button>
+          </div>
+          <FaqList limit={4} />
+        </div>
+      </section>
+
+      <CtaBand />
+    </>
+  );
+}
